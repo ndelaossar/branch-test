@@ -5,7 +5,7 @@ on:
     branches:
       - devel
       - stage
-      - production
+      - prod
 
 jobs:
   check-merge:
@@ -21,7 +21,7 @@ jobs:
               echo "Merging into stage branch is allowed only from devel branch."
               exit 1
             fi
-          elif [[ "${{ github.base_ref }}" == "production" ]]; then
+          elif [[ "${{ github.base_ref }}" == "prod" ]]; then
             if [[ "${{ github.head_ref }}" != "stage" ]]; then
               echo "Merging into production branch is allowed only from stage branch."
               exit 1
