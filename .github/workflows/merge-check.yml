@@ -14,8 +14,10 @@ jobs:
       - name: Check branch
         run: |
           if [[ "${{ github.base_ref }}" == "devel" ]]; then
-            echo "Merging into devel branch is allowed only from feature or bugfix branches."
-            exit 1
+            if [[ ! "${{ github.head_ref }}" =~ ^(feature|bugfix) ]]; then
+              echo "Merging into devel branch is allowed only from feature or bugfix branches."
+              exit 1
+            fi
           elif [[ "${{ github.base_ref }}" == "stage" ]]; then
             if [[ "${{ github.head_ref }}" != "devel" ]]; then
               echo "Merging into stage branch is allowed only from devel branch."
